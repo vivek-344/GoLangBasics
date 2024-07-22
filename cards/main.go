@@ -1,7 +1,25 @@
 package main
 
+import "fmt"
+
 func main() {
 	cards := newDeck()
 
-	cards.print()
+	cards.shuffle()
+
+	hand, remCards := cards.deal(5)
+
+	hand.print()
+
+	err := remCards.saveToFile("Remaining Cards")
+
+	if err == nil {
+		fmt.Println("Saved to File!")
+	} else {
+		fmt.Println(err)
+	}
+
+	newCards := newDeckFromFile("Remaining Cards")
+
+	newCards.print()
 }
