@@ -7,7 +7,7 @@ func main() {
 
 	cards.shuffle()
 
-	hand, remCards := cards.deal(5)
+	hand, remCards := deal(cards, 5)
 
 	hand.print()
 

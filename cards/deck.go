@@ -36,7 +36,7 @@ func (d deck) shuffle() {
 	}
 }
 
-func (d deck) deal(h int) (deck, deck) {
+func deal(d deck, h int) (deck, deck) {
 	d1 := d[:h]
 	d2 := d[h:]
 	return d1, d2
