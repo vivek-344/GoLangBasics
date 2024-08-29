@@ -16,5 +16,32 @@ func main() {
 
 	// There a lot going around Reader and Writer Interface
 	// Read Documentation :)
-	io.Copy(os.Stdout, resp.Body)
+	alphabets, errAl := countAlphabets(resp.Body)
+
+	if errAl != nil {
+		panic(errAl)
+	}
+
+	fmt.Printf("Letters: %v", alphabets)
+}
+
+func countAlphabets(r io.Reader) (int, error) {
+	count := 0
+	buff := make([]byte, 1024)
+
+	for {
+		n, err := r.Read(buff)
+		for _, ch := range buff[:n] {
+			if ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' {
+				count++
+			}
+		}
+		if err == io.EOF {
+			return count, nil
+		}
+
+		if err != nil {
+			return 0, err
+		}
+	}
 }
